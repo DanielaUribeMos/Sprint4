@@ -24,7 +24,8 @@ def plantillas(request):
             jsonData = {
                 'id': str(dto['_id']),
                 "plantilla": dto['plantilla'],
-                'threshold': dto['threshold']
+                'especializacion': dto['especializacion'],
+                'costo': dto['costo']
             }
             result.append(jsonData)
         client.close()
