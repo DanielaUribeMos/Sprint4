@@ -15,9 +15,9 @@ def HistoriaCreate(request):
     if request.method == 'POST':
         data = request.body.decode('utf-8')
         data_json = json.loads(data)
-        Historia = Historia()
-        Historia.name = data_json["name"]
-        Historia.especializacion = data_json["especializacion"]
-        Historia.costo = data_json["costo"]
-        Historia.save()
+        historia = Historia()
+        historia.name = data_json["name"]
+        historia.especializacion = data_json["especializacion"]
+        historia.costo = data_json["costo"]
+        historia.save()
         return HttpResponse("successfully created Historia")
