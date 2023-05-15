@@ -7,5 +7,5 @@ from . import views
 urlpatterns = [
     url(r'^historias/', views.HistoriaList, name='historiaList'),
     url(r'^historiacreate/$', csrf_exempt(views.HistoriaCreate), name='historiaCreate'),
-     url(r'^historiabusqueda/', csrf_exempt(views.busqueda), name='busqueda'),
+    url(r'^historiabusqueda/', csrf_exempt(views.busqueda), name='busqueda'),
 ]

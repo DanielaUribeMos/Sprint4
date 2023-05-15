@@ -23,7 +23,7 @@ def HistoriaCreate(request):
         historia.save()
         return HttpResponse("successfully created Historia")
 
-def busqueda():
+def busqueda(request):
     query = "SELECT * FROM Historia WHERE especializacion = %s"
     params = ['Cardiologia']
     
