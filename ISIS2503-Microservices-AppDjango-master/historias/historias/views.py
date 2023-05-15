@@ -23,6 +23,20 @@ def HistoriaCreate(request):
         historia.save()
         return HttpResponse("successfully created Historia")
 
+def HistoriasCreate(request):
+    if request.method == 'POST':
+        data = request.body.decode('utf-8')
+        data_json = json.loads(data)
+        historia_list = []
+        for historia in data_json:
+            historia = Historia()
+            historia.name = historia["name"]
+            historia.especializacion = historia["especializacion"]
+            historia.costo = historia["costo"]
+            historia_list.append(historia)
+        Historia.objects.bulk_create(historia_list)
+        return HttpResponse("successfully created Historia")
+
 def busqueda(request):
 
     #Cardiologia
