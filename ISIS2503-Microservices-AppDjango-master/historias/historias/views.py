@@ -39,14 +39,11 @@ def busqueda(request):
         name_value=result[1]
         especializacion_value=result[2]
         costo_value=result[3]
-        respuesta= "Id: " + str(id_value) + " Nombre: " + name_value + " Especialización: " + especializacion_value + " Costo: " + str(costo_value) +" \n"
+        respuesta+= "Id: " + str(id_value) + " Nombre: " + name_value + " Especializacion: " + especializacion_value + " Costo: " + str(costo_value) +" \n"
         costos+=costo_value
         contador+=1
 
     costo_promedio=costos/contador
     respuesta += "Con un costo promedio de citas de: " + str(costo_promedio)
 
-    response_data = {
-        'respuesta': respuesta
-    }
-    return JsonResponse(response_data)
+    return HttpResponse(respuesta)
