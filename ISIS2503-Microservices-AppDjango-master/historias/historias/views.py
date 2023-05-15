@@ -23,7 +23,7 @@ def HistoriaCreate(request):
         historia.save()
         return HttpResponse("successfully created Historia")
 
-def promedioCar():
+def busqueda():
     query = "SELECT * FROM Historia WHERE especializacion = %s"
     params = ['Cardiologia']
     
