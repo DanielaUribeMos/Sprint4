@@ -38,7 +38,7 @@ def busqueda(request):
         name_value=result[1]
         especializacion_value=result[2]
         costo_value=result[3]
-        respuesta+= "Id: " + id_value + " Nombre: " + name_value + " Especialización: " + especializacion_value + " Costo: " + costo_value +" \n"
+        respuesta= "Id: " + str(id_value) + " Nombre: " + name_value + " Especialización: " + especializacion_value + " Costo: " + str(costo_value) +" \n"
 
     respuesta = "Con un costo promedio de citas de: "
     query = "SELECT SUM(costo) FROM historias_historia WHERE especializacion = %s"
@@ -47,6 +47,6 @@ def busqueda(request):
         cursor.execute(query, params)
         results = cursor.fetchall()
     
-    respuesta+= results
+    respuesta+= str(results)
 
     return respuesta
