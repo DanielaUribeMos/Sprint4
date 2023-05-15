@@ -44,6 +44,9 @@ def busqueda(request):
         contador+=1
 
     costo_promedio=costos/contador
-    respuesta = "Con un costo promedio de citas de: " + str(costo_promedio)
+    respuesta += "Con un costo promedio de citas de: " + str(costo_promedio)
 
-    return respuesta
+    response_data = {
+        'respuesta': respuesta
+    }
+    return JsonResponse(response_data)
