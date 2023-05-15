@@ -46,7 +46,7 @@ def busqueda(request):
         contador+=1
 
     costo_promedio=costos/contador
-    respuesta += "Con un costo promedio de citas de: " + str(costo_promedio)
+    respuesta += "Con un costo promedio de citas de: " + str(costo_promedio) + "<br> <br>"
 
     #Neurologia
     query = "SELECT * FROM historias_historia WHERE especializacion = %s"
@@ -69,7 +69,7 @@ def busqueda(request):
         contador+=1
 
     costo_promedio=costos/contador
-    respuesta += "Con un costo promedio de citas de: " + str(costo_promedio)
+    respuesta += "Con un costo promedio de citas de: " + str(costo_promedio) + "<br> <br>"
 
     #Neurologia
     query = "SELECT * FROM historias_historia WHERE especializacion = %s"
@@ -79,7 +79,7 @@ def busqueda(request):
         cursor.execute(query, params)
         results = cursor.fetchall()
     
-    respuesta += "Las historias de gastroentrelorogiason: <br>"
+    respuesta += "Las historias de gastroentrelorogia son: <br>"
     costos=0
     contador=0
     for result in results:
