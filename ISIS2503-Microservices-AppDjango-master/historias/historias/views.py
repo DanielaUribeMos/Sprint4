@@ -34,11 +34,19 @@ def busqueda(request):
     respuesta = "Las historias de cardiología son: \n"
 
     for result in results:
-        id_value = result["id"]
-        name_value = result["name"]
-        especializacion_value = result["especializacion"]
-        costo_value = result["costo"]
+        id_value=result[0]
+        name_value=result[1]
+        especializacion_value=result[2]
+        costo_value=result[3]
+        respuesta+= "Id: " + id_value + " Nombre: " + name_value + " Especialización: " + especializacion_value + " Costo: " + costo_value +" \n"
 
-        respuesta=respuesta + "Id: " + id_value + " Nombre: " + name_value + " Especialización: " + especializacion_value + " Costo: " + costo_value +" \n"
+    respuesta = "Con un costo promedio de citas de: "
+    query = "SELECT SUM(costo) FROM historias_historia WHERE especializacion = %s"
+
+    with connection.cursor() as cursor:
+        cursor.execute(query, params)
+        results = cursor.fetchall()
+    
+    respuesta+= results
 
     return respuesta
