@@ -24,7 +24,7 @@ def HistoriaCreate(request):
         return HttpResponse("successfully created Historia")
 
 def busqueda(request):
-    query = "SELECT * FROM historias WHERE especializacion = %s"
+    query = "SELECT * FROM historias_historia WHERE especializacion = %s"
     params = ['Cardiologia']
     
     with connection.cursor() as cursor:
