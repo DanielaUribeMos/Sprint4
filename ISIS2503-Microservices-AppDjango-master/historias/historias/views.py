@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.http import JsonResponse
 import json
+import requests
 from django.db import connection
 
 def HistoriaList(request):
@@ -28,11 +29,11 @@ def HistoriasCreate(request):
         data = request.body.decode('utf-8')
         data_json = json.loads(data)
         historia_list = []
-        for historia in data_json:
+        for historia_data in data_json:
             historia = Historia()
-            historia.name = historia["name"]
-            historia.especializacion = historia["especializacion"]
-            historia.costo = historia["costo"]
+            historia.name = historia_data['name']
+            historia.especializacion = historia_data['especializacion']
+            historia.costo = historia_data['costo']
             historia_list.append(historia)
         Historia.objects.bulk_create(historia_list)
         return HttpResponse("successfully created Historia")
