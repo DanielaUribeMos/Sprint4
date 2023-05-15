@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.http import JsonResponse
 import json
+from django.db import connection
 
 def HistoriaList(request):
     queryset = Historia.objects.all()
@@ -21,3 +22,23 @@ def HistoriaCreate(request):
         historia.costo = data_json["costo"]
         historia.save()
         return HttpResponse("successfully created Historia")
+
+def promedioCar():
+    query = "SELECT * FROM Historia WHERE especializacion = %s"
+    params = ['Cardiologia']
+    
+    with connection.cursor() as cursor:
+        cursor.execute(query, params)
+        results = cursor.fetchall()
+    
+    respuesta = "Las historias de cardiología son: \n"
+
+    for result in results:
+        id_value = result["id"]
+        name_value = result["name"]
+        especializacion_value = result["especializacion"]
+        costo_value = result["costo"]
+
+        respuesta=respuesta + "Id: " + id_value + " Nombre: " + name_value + " Especialización: " + especializacion_value + " Costo: " + costo_value +" \n"
+
+    return respuesta
