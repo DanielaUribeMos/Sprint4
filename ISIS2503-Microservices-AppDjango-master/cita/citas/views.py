@@ -71,8 +71,11 @@ def busqueda(request):
         costos+=costo_value
         contador+=1
 
-    costo_promedio=costos/contador
-    respuesta += "Con un costo promedio de citas de: " + str(costo_promedio) + "<br> <br>"
+    if len(results)>0:
+        costo_promedio=costos/contador
+        respuesta += "Con un costo promedio de citas de: " + str(costo_promedio) + "<br> <br>"
+    else:
+        respuesta += "No hay citas de esa categoria <br> <br>"
 
     #Neurologia
     query = "SELECT * FROM citas_cita WHERE especializacion = %s"
@@ -94,8 +97,11 @@ def busqueda(request):
         costos+=costo_value
         contador+=1
 
-    costo_promedio=costos/contador
-    respuesta += "Con un costo promedio de citas de: " + str(costo_promedio) + "<br> <br>"
+    if len(results)>0:
+        costo_promedio=costos/contador
+        respuesta += "Con un costo promedio de citas de: " + str(costo_promedio) + "<br> <br>"
+    else:
+        respuesta += "No hay citas de esa categoria <br> <br>"
 
     #Neurologia
     query = "SELECT * FROM citas_cita WHERE especializacion = %s"
@@ -117,7 +123,10 @@ def busqueda(request):
         costos+=costo_value
         contador+=1
 
-    costo_promedio=costos/contador
-    respuesta += "Con un costo promedio de citas de: " + str(costo_promedio)
+    if len(results)>0:
+        costo_promedio=costos/contador
+        respuesta += "Con un costo promedio de citas de: " + str(costo_promedio) + "<br> <br>"
+    else:
+        respuesta += "No hay citas de esa categoria <br> <br>"
 
     return HttpResponse(respuesta)
