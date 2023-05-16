@@ -129,7 +129,6 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
 
-PATH_VAR = "http://10.182.0.7:8080/citas"
 
 # MongoDB Atlas Config
 MONGO_CLI = os.environ['MONGO_CLIENT']

@@ -7,6 +7,7 @@ from django.http import JsonResponse
 import json
 import requests
 from django.db import connection
+from django.conf import settings
 
 def CitaList(request):
     queryset = Cita.objects.all()
@@ -38,6 +39,16 @@ def CitasCreate(request):
         Cita.objects.bulk_create(cita_list)
         return HttpResponse("successfully created Cita")
 
+
+def dar_telefono(name):
+    r = requests.get(settings.PATH_VAR, headers={"Accept":"application/json"})
+    pacientes = r.json()
+    for paciente in pacientes:
+        if name == paciente["nombre"]:
+            return paciente["telefono"]
+    return ""
+
+
 def busqueda(request):
 
     #Cardiologia
@@ -56,7 +67,7 @@ def busqueda(request):
         name_value=result[1]
         especializacion_value=result[2]
         costo_value=result[3]
-        respuesta+= "Id: " + str(id_value) + " Nombre: " + name_value + " Especializacion: " + especializacion_value + " Costo: " + str(costo_value) + " <br>"
+        respuesta+= "Id: " + str(id_value) + " Nombre: " + name_value + " Especializacion: " + especializacion_value + " Costo: " + str(costo_value) + " Telefono: " + dar_telefono(result[1]) + " <br>"
         costos+=costo_value
         contador+=1
 
@@ -79,7 +90,7 @@ def busqueda(request):
         name_value=result[1]
         especializacion_value=result[2]
         costo_value=result[3]
-        respuesta+= "Id: " + str(id_value) + " Nombre: " + name_value + " Especializacion: " + especializacion_value + " Costo: " + str(costo_value) + " <br>"
+        respuesta+= "Id: " + str(id_value) + " Nombre: " + name_value + " Especializacion: " + especializacion_value + " Costo: " + str(costo_value) + "Telefono: " + dar_telefono(result[1]) + " <br>"
         costos+=costo_value
         contador+=1
 
@@ -102,7 +113,7 @@ def busqueda(request):
         name_value=result[1]
         especializacion_value=result[2]
         costo_value=result[3]
-        respuesta+= "Id: " + str(id_value) + " Nombre: " + name_value + " Especializacion: " + especializacion_value + " Costo: " + str(costo_value) + " <br>"
+        respuesta+= "Id: " + str(id_value) + " Nombre: " + name_value + " Especializacion: " + especializacion_value + " Costo: " + str(costo_value) + "Telefono: " + dar_telefono(result[1]) + " <br>"
         costos+=costo_value
         contador+=1
 

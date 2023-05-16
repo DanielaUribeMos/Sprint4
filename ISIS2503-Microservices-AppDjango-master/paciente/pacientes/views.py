@@ -22,10 +22,10 @@ def pacientes(request):
         data = pacientes.find({})
         for dto in data:
             jsonData = {
-                'id': str(dto['_id']),
+                "id": str(dto['id']),
                 "nombre": dto['nombre'],
-                'telefono': dto['etelefono'],
-                'cedula': dto['cedula']
+                "telefono": dto['telefono'],
+                "cedula": dto['cedula']
             }
             result.append(jsonData)
         client.close()
