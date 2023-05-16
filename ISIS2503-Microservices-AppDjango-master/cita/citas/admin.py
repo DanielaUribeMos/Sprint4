@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import Historia
+from . models import Cita
 
 # Register your models here.
-admin.site.register(Historia)
+admin.site.register(Cita)

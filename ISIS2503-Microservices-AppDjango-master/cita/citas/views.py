@@ -1,4 +1,4 @@
-from .models import Historia
+from .models import Cita
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import HttpResponse
@@ -8,47 +8,47 @@ import json
 import requests
 from django.db import connection
 
-def HistoriaList(request):
-    queryset = Historia.objects.all()
+def CitaList(request):
+    queryset = Cita.objects.all()
     context = list(queryset.values('id', 'name', 'especializacion', 'costo'))
     return JsonResponse(context, safe=False)
 
-def HistoriaCreate(request):
+def CitaCreate(request):
     if request.method == 'POST':
         data = request.body.decode('utf-8')
         data_json = json.loads(data)
-        historia = Historia()
-        historia.name = data_json["name"]
-        historia.especializacion = data_json["especializacion"]
-        historia.costo = data_json["costo"]
-        historia.save()
-        return HttpResponse("successfully created Historia")
+        cita = Cita()
+        cita.name = data_json["name"]
+        cita.especializacion = data_json["especializacion"]
+        cita.costo = data_json["costo"]
+        cita.save()
+        return HttpResponse("successfully created Cita")
 
-def HistoriasCreate(request):
+def CitasCreate(request):
     if request.method == 'POST':
         data = request.body.decode('utf-8')
         data_json = json.loads(data)
-        historia_list = []
-        for historia_data in data_json:
-            historia = Historia()
-            historia.name = historia_data['name']
-            historia.especializacion = historia_data['especializacion']
-            historia.costo = historia_data['costo']
-            historia_list.append(historia)
-        Historia.objects.bulk_create(historia_list)
-        return HttpResponse("successfully created Historia")
+        cita_list = []
+        for cita_data in data_json:
+            cita = Cita()
+            cita.name = cita_data['name']
+            cita.especializacion = cita_data['especializacion']
+            cita.costo = cita_data['costo']
+            cita_list.append(cita)
+        Cita.objects.bulk_create(cita_list)
+        return HttpResponse("successfully created Cita")
 
 def busqueda(request):
 
     #Cardiologia
-    query = "SELECT * FROM historias_historia WHERE especializacion = %s"
+    query = "SELECT * FROM citas_cita WHERE especializacion = %s"
     params = ['Cardiologia']
     
     with connection.cursor() as cursor:
         cursor.execute(query, params)
         results = cursor.fetchall()
     
-    respuesta = "Las historias de cardiologia son: <br>"
+    respuesta = "Las citas de cardiologia son: <br>"
     costos=0
     contador=0
     for result in results:
@@ -64,14 +64,14 @@ def busqueda(request):
     respuesta += "Con un costo promedio de citas de: " + str(costo_promedio) + "<br> <br>"
 
     #Neurologia
-    query = "SELECT * FROM historias_historia WHERE especializacion = %s"
+    query = "SELECT * FROM citas_cita WHERE especializacion = %s"
     params = ['Neurologia']
     
     with connection.cursor() as cursor:
         cursor.execute(query, params)
         results = cursor.fetchall()
     
-    respuesta += "Las historias de neurologia son: <br>"
+    respuesta += "Las citas de neurologia son: <br>"
     costos=0
     contador=0
     for result in results:
@@ -87,14 +87,14 @@ def busqueda(request):
     respuesta += "Con un costo promedio de citas de: " + str(costo_promedio) + "<br> <br>"
 
     #Neurologia
-    query = "SELECT * FROM historias_historia WHERE especializacion = %s"
+    query = "SELECT * FROM citas_cita WHERE especializacion = %s"
     params = ['Gastroentrelorogia']
     
     with connection.cursor() as cursor:
         cursor.execute(query, params)
         results = cursor.fetchall()
     
-    respuesta += "Las historias de gastroentrelorogia son: <br>"
+    respuesta += "Las citas de gastroentrelorogia son: <br>"
     costos=0
     contador=0
     for result in results:

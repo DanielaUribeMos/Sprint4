@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'plantillas',
+    'citas',
 ]
 
 MIDDLEWARE = [
@@ -74,12 +74,16 @@ WSGI_APPLICATION = 'widmy.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'variables_db',
+        'USER': 'variables_user',
+        'PASSWORD': 'isis2503',
+        'HOST': '10.182.0.2',
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation
@@ -128,8 +132,3 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
-
-PATH_VAR = "http://10.182.0.3:8080/historias"
-
-# MongoDB Atlas Config
-MONGO_CLI = os.environ['MONGO_CLIENT']

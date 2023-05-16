@@ -13,19 +13,19 @@ from rest_framework.parsers import JSONParser
 from bson.objectid import ObjectId
 
 @api_view(["GET", "POST"])
-def plantillas(request):
+def pacientes(request):
     client = MongoClient(settings.MONGO_CLI)
     db = client.widmy_db
-    plantillas = db['plantillas']
+    pacientes = db['pacientes']
     if request.method == "GET":
         result = []
-        data = plantillas.find({})
+        data = pacientes.find({})
         for dto in data:
             jsonData = {
                 'id': str(dto['_id']),
-                "plantilla": dto['plantilla'],
-                'especializacion': dto['especializacion'],
-                'costo': dto['costo']
+                "nombre": dto['nombre'],
+                'telefono': dto['etelefono'],
+                'cedula': dto['cedula']
             }
             result.append(jsonData)
         client.close()
@@ -33,7 +33,7 @@ def plantillas(request):
     
     if request.method == 'POST':
         data = JSONParser().parse(request)
-        result = plantillas.insert(data)
+        result = pacientes.insert(data)
         respo ={
             "MongoObjectID": str(result),
             "Message": "nuevo objeto en la base de datos"

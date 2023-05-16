@@ -1,6 +1,6 @@
 from django.db import models
 
-class Historia(models.Model):
+class Cita(models.Model):
     name = models.CharField(max_length=50)
     especializacion = models.CharField(max_length=50)
     costo = models.IntegerField(null=False, default=None)
