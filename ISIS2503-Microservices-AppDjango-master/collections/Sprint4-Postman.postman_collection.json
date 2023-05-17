@@ -1,0 +1,412 @@
+{
+	"info": {
+		"_postman_id": "83fe0d7d-618b-47fd-ac06-44bb14bb1f59",
+		"name": "Sprint4-Postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Kong",
+			"item": [
+				{
+					"name": "Registrar servicio",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"plantillacreate\",\r\n    \"url\": \"http://10.182.0.9:8080\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://34.125.33.45:8001/services",
+							"protocol": "http",
+							"host": [
+								"34",
+								"125",
+								"33",
+								"45"
+							],
+							"port": "8001",
+							"path": [
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registrar ruta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"hosts\": [\"10.182.0.9\", \"0.0.0.0\", \"34.125.33.45\"],\r\n    \"paths\": [\"/plantillacreate\"],\r\n    \"strip_path\": false,\r\n    \"methods\": [\"POST\"],\r\n    \"service\": {\"id\": \"98e4dfe2-dcbd-4860-8847-7ea362a8bc33\"},\r\n    \"preserve_host\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://34.125.33.45:8001/routes/",
+							"protocol": "http",
+							"host": [
+								"34",
+								"125",
+								"33",
+								"45"
+							],
+							"port": "8001",
+							"path": [
+								"routes",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener servicios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://34.125.33.45:8001/services",
+							"protocol": "http",
+							"host": [
+								"34",
+								"125",
+								"33",
+								"45"
+							],
+							"port": "8001",
+							"path": [
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener rutas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://34.125.33.45:8001/routes/",
+							"protocol": "http",
+							"host": [
+								"34",
+								"125",
+								"33",
+								"45"
+							],
+							"port": "8001",
+							"path": [
+								"routes",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://34.125.33.45:8001/routes/?id=3eef8bd7-4359-4514-a92d-16721ac83cd3",
+							"protocol": "http",
+							"host": [
+								"34",
+								"125",
+								"33",
+								"45"
+							],
+							"port": "8001",
+							"path": [
+								"routes",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3eef8bd7-4359-4514-a92d-16721ac83cd3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Citas",
+			"item": [
+				{
+					"name": "Create Cita",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sara Torres\",\r\n    \"especializacion\": \"Cardiologia\",\r\n    \"costo\": 25\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://34.125.33.45:8000/citacreate/",
+							"protocol": "http",
+							"host": [
+								"34",
+								"125",
+								"33",
+								"45"
+							],
+							"port": "8000",
+							"path": [
+								"citacreate",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Citas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Temperatura\",\r\n    \"data\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://34.125.33.45:8000/citas/",
+							"protocol": "http",
+							"host": [
+								"34",
+								"125",
+								"33",
+								"45"
+							],
+							"port": "8000",
+							"path": [
+								"citas",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cita Busqueda",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://34.125.33.45:8000/citabusqueda/",
+							"protocol": "http",
+							"host": [
+								"34",
+								"125",
+								"33",
+								"45"
+							],
+							"port": "8000",
+							"path": [
+								"citabusqueda",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Citas create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n    \"name\": \"Darío\",\n    \"especializacion\": \"Emergencia\",\n    \"costo\": 100\n}]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://34.125.33.45:8000/citascreate/",
+							"protocol": "http",
+							"host": [
+								"34",
+								"125",
+								"33",
+								"45"
+							],
+							"port": "8000",
+							"path": [
+								"citascreate",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pacientes",
+			"item": [
+				{
+					"name": "Create Paciente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Sara Torres\",\r\n    \"telefono\": \"3153409240\",\r\n    \"cedula\": \"1000940213\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://34.125.33.45:8000/pacientes/",
+							"protocol": "http",
+							"host": [
+								"34",
+								"125",
+								"33",
+								"45"
+							],
+							"port": "8000",
+							"path": [
+								"pacientes",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pacientes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"variable\": 1,\r\n    \"value\": 24,\r\n    \"unit\": \"C\",\r\n    \"place\": \"ML\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://34.125.33.45:8000/pacientes/",
+							"protocol": "http",
+							"host": [
+								"34",
+								"125",
+								"33",
+								"45"
+							],
+							"port": "8000",
+							"path": [
+								"pacientes",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Plantillas",
+			"item": [
+				{
+					"name": "Create Plantilla",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tipo\": \"Cardiologia\",\n    \"fecha\": \"13/07/2001\",\n    \"doctor\": \"María Alejandra Cervantes\"\n}"
+						},
+						"url": {
+							"raw": "http://34.125.33.45:8000/plantillacreate/",
+							"protocol": "http",
+							"host": [
+								"34",
+								"125",
+								"33",
+								"45"
+							],
+							"port": "8000",
+							"path": [
+								"plantillacreate",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Plantillas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://34.125.33.45:8000/plantillas/",
+							"protocol": "http",
+							"host": [
+								"34",
+								"125",
+								"33",
+								"45"
+							],
+							"port": "8000",
+							"path": [
+								"plantillas",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
