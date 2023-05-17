@@ -8,22 +8,38 @@ import json
 import requests
 from django.db import connection
 from django.conf import settings
+from django.http import HttpResponseBadRequest
 
 def CitaList(request):
-    queryset = Cita.objects.all()
-    context = list(queryset.values('id', 'name', 'especializacion', 'costo'))
-    return JsonResponse(context, safe=False)
+    if request.method == 'GET':
+        queryset = Cita.objects.all()
+        context = list(queryset.values('id', 'name', 'especializacion', 'costo'))
+        return JsonResponse(context, safe=False)
+    return HttpResponseBadRequest("Invalid request method")
 
 def CitaCreate(request):
     if request.method == 'POST':
-        data = request.body.decode('utf-8')
-        data_json = json.loads(data)
+        try:
+            data = request.body.decode('utf-8')
+            data_json = json.loads(data)
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            return HttpResponseBadRequest("Invalid JSON data")
+
+        if "name" not in data_json or not isinstance(data_json["name"], str):
+            return HttpResponseBadRequest("Invalid 'name' value")
+        if "especializacion" not in data_json or not isinstance(data_json["especializacion"], str):
+            return HttpResponseBadRequest("Invalid 'especializacion' value")
+        if "costo" not in data_json or not isinstance(data_json["costo"], float):
+            return HttpResponseBadRequest("Invalid 'costo' value")
+
         cita = Cita()
         cita.name = data_json["name"]
         cita.especializacion = data_json["especializacion"]
         cita.costo = data_json["costo"]
         cita.save()
-        return HttpResponse("successfully created Cita")
+        return HttpResponse("Successfully created Cita")
+
+    return HttpResponseBadRequest("Invalid request method")
 
 def CitasCreate(request):
     if request.method == 'POST':
@@ -51,82 +67,86 @@ def dar_telefono(name):
 
 def busqueda(request):
 
-    #Cardiologia
-    query = "SELECT * FROM citas_cita WHERE especializacion = %s"
-    params = ['Cardiologia']
-    
-    with connection.cursor() as cursor:
-        cursor.execute(query, params)
-        results = cursor.fetchall()
-    
-    respuesta = "Las citas de cardiologia son: <br>"
-    costos=0
-    contador=0
-    for result in results:
-        id_value=result[0]
-        name_value=result[1]
-        especializacion_value=result[2]
-        costo_value=result[3]
-        respuesta+= "Id: " + str(id_value) + " Nombre: " + name_value + " Especializacion: " + especializacion_value + " Costo: " + str(costo_value) + " Telefono: " + dar_telefono(result[1]) + " <br>"
-        costos+=costo_value
-        contador+=1
+    if request.method == 'GET':
+        #Cardiologia
+        query = "SELECT * FROM citas_cita WHERE especializacion = %s"
+        params = ['Cardiologia']
+        
+        with connection.cursor() as cursor:
+            cursor.execute(query, params)
+            results = cursor.fetchall()
+        
+        respuesta = "Las citas de cardiologia son: <br>"
+        costos=0
+        contador=0
+        for result in results:
+            id_value=result[0]
+            name_value=result[1]
+            especializacion_value=result[2]
+            costo_value=result[3]
+            respuesta+= "Id: " + str(id_value) + " Nombre: " + name_value + " Especializacion: " + especializacion_value + " Costo: " + str(costo_value) + " Telefono: " + dar_telefono(result[1]) + " <br>"
+            costos+=costo_value
+            contador+=1
 
-    if len(results)>0:
-        costo_promedio=costos/contador
-        respuesta += "Con un costo promedio de citas de: " + str(costo_promedio) + "<br> <br>"
-    else:
-        respuesta += "No hay citas de esa categoria <br> <br>"
+        if len(results)>0:
+            costo_promedio=costos/contador
+            respuesta += "Con un costo promedio de citas de: " + str(costo_promedio) + "<br> <br>"
+        else:
+            respuesta += "No hay citas de esa categoria <br> <br>"
 
-    #Neurologia
-    query = "SELECT * FROM citas_cita WHERE especializacion = %s"
-    params = ['Neurologia']
+        #Neurologia
+        query = "SELECT * FROM citas_cita WHERE especializacion = %s"
+        params = ['Neurologia']
+        
+        with connection.cursor() as cursor:
+            cursor.execute(query, params)
+            results = cursor.fetchall()
+        
+        respuesta += "Las citas de neurologia son: <br>"
+        costos=0
+        contador=0
+        for result in results:
+            id_value=result[0]
+            name_value=result[1]
+            especializacion_value=result[2]
+            costo_value=result[3]
+            respuesta+= "Id: " + str(id_value) + " Nombre: " + name_value + " Especializacion: " + especializacion_value + " Costo: " + str(costo_value) + " Telefono: " + dar_telefono(result[1]) + " <br>"
+            costos+=costo_value
+            contador+=1
+
+        if len(results)>0:
+            costo_promedio=costos/contador
+            respuesta += "Con un costo promedio de citas de: " + str(costo_promedio) + "<br> <br>"
+        else:
+            respuesta += "No hay citas de esa categoria <br> <br>"
+
+        #Neurologia
+        query = "SELECT * FROM citas_cita WHERE especializacion = %s"
+        params = ['Gastroentrelorogia']
+        
+        with connection.cursor() as cursor:
+            cursor.execute(query, params)
+            results = cursor.fetchall()
+        
+        respuesta += "Las citas de gastroentrelorogia son: <br>"
+        costos=0
+        contador=0
+        for result in results:
+            id_value=result[0]
+            name_value=result[1]
+            especializacion_value=result[2]
+            costo_value=result[3]
+            respuesta+= "Id: " + str(id_value) + " Nombre: " + name_value + " Especializacion: " + especializacion_value + " Costo: " + str(costo_value) + " Telefono: " + dar_telefono(result[1]) + " <br>"
+            costos+=costo_value
+            contador+=1
+
+        if len(results)>0:
+            costo_promedio=costos/contador
+            respuesta += "Con un costo promedio de citas de: " + str(costo_promedio) + "<br> <br>"
+        else:
+            respuesta += "No hay citas de esa categoria <br> <br>"
+
+        return HttpResponse(respuesta)
     
-    with connection.cursor() as cursor:
-        cursor.execute(query, params)
-        results = cursor.fetchall()
-    
-    respuesta += "Las citas de neurologia son: <br>"
-    costos=0
-    contador=0
-    for result in results:
-        id_value=result[0]
-        name_value=result[1]
-        especializacion_value=result[2]
-        costo_value=result[3]
-        respuesta+= "Id: " + str(id_value) + " Nombre: " + name_value + " Especializacion: " + especializacion_value + " Costo: " + str(costo_value) + " Telefono: " + dar_telefono(result[1]) + " <br>"
-        costos+=costo_value
-        contador+=1
+    return HttpResponseBadRequest("Invalid request method")
 
-    if len(results)>0:
-        costo_promedio=costos/contador
-        respuesta += "Con un costo promedio de citas de: " + str(costo_promedio) + "<br> <br>"
-    else:
-        respuesta += "No hay citas de esa categoria <br> <br>"
-
-    #Neurologia
-    query = "SELECT * FROM citas_cita WHERE especializacion = %s"
-    params = ['Gastroentrelorogia']
-    
-    with connection.cursor() as cursor:
-        cursor.execute(query, params)
-        results = cursor.fetchall()
-    
-    respuesta += "Las citas de gastroentrelorogia son: <br>"
-    costos=0
-    contador=0
-    for result in results:
-        id_value=result[0]
-        name_value=result[1]
-        especializacion_value=result[2]
-        costo_value=result[3]
-        respuesta+= "Id: " + str(id_value) + " Nombre: " + name_value + " Especializacion: " + especializacion_value + " Costo: " + str(costo_value) + " Telefono: " + dar_telefono(result[1]) + " <br>"
-        costos+=costo_value
-        contador+=1
-
-    if len(results)>0:
-        costo_promedio=costos/contador
-        respuesta += "Con un costo promedio de citas de: " + str(costo_promedio) + "<br> <br>"
-    else:
-        respuesta += "No hay citas de esa categoria <br> <br>"
-
-    return HttpResponse(respuesta)

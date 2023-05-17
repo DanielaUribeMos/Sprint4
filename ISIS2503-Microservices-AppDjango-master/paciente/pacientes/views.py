@@ -11,6 +11,8 @@ import datetime
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.parsers import JSONParser
 from bson.objectid import ObjectId
+from django.http import HttpResponseBadRequest
+
 
 @api_view(["GET", "POST"])
 def pacientes(request):
@@ -32,11 +34,20 @@ def pacientes(request):
         return JsonResponse(result, safe=False)
     
     if request.method == 'POST':
-        data = JSONParser().parse(request)
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError:
+            return HttpResponseBadRequest("Invalid JSON data")
+
+        if not isinstance(data, dict):
+            return HttpResponseBadRequest("Invalid data format")
+        
         result = pacientes.insert(data)
-        respo ={
+        respo = {
             "MongoObjectID": str(result),
             "Message": "nuevo objeto en la base de datos"
         }
         client.close()
         return JsonResponse(respo, safe=False)
+
+    return HttpResponseBadRequest("Invalid request method")
