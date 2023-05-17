@@ -29,7 +29,7 @@ def CitaCreate(request):
             return HttpResponseBadRequest("Invalid 'name' value")
         if "especializacion" not in data_json or not isinstance(data_json["especializacion"], str):
             return HttpResponseBadRequest("Invalid 'especializacion' value")
-        if "costo" not in data_json or not isinstance(data_json["costo"], float):
+        if "costo" not in data_json or not isinstance(data_json["costo"], int):
             return HttpResponseBadRequest("Invalid 'costo' value")
 
         cita = Cita()
