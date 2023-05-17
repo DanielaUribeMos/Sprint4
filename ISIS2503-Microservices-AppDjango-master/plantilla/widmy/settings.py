@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'plantillas_db',
         'USER': 'plantillas_user',
         'PASSWORD': 'isis2503',
-        'HOST': '10.182.0.2',
+        'HOST': '10.182.0.8',
         'PORT': '5432',
     }
 }
