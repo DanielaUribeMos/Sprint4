@@ -6,5 +6,5 @@ from . import views
 
 urlpatterns = [
     url(r'^plantillas/', views.PlantillaList, name='plantillaList'),
-    url(r'^plantilacreate/$', csrf_exempt(views.PlantillaCreate), name='plantillaCreate'),
+    url(r'^plantillacreate/$', csrf_exempt(views.PlantillaCreate), name='plantillaCreate'),
 ]
